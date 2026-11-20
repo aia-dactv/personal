@@ -74,7 +74,7 @@ nav a{color:var(--mute);transition:color .3s}nav a:hover,nav a.on{color:var(--cr
 /* services */
 .note{display:inline-block;font-size:.85rem;color:var(--mute);border:1px solid var(--line);padding:6px 14px;border-radius:999px;margin:-30px 0 40px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-.card{background:var(--bg);padding:34px 28px;transition:background .4s,transform .4s}
+.card{display:block;background:var(--bg);padding:34px 28px;transition:background .4s,transform .4s}
 .card:hover{background:var(--bg2);transform:translateY(-4px)}
 .card svg{width:30px;height:30px;stroke:var(--cream);fill:none;stroke-width:1.2;margin-bottom:26px}
 .card h3{font-size:1.45rem;margin-bottom:10px}.card p{color:var(--mute);margin:0;font-size:.95rem}
@@ -235,6 +235,7 @@ const CONFIG={
   contact:{email:"meyahlopez22@gmail.com",phone:"09099304725",linkedin:"",other:[] /* e.g. [["Instagram","https://..."]] */}
 };
 /* ===== END EDITABLE CONTENT ===== */
+const PAGES={"Networking Basics":"networking.html","Web Development":"web-development.html","Tech Support & Troubleshooting":"tech-support.html","Databases":"databases.html","Cybersecurity Awareness":"cybersecurity.html","Programming Fundamentals":"programming.html","Computer Hardware & Setup":"hardware.html"};
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3200)};
@@ -243,7 +244,7 @@ $("#yr").textContent=new Date().getFullYear();
 $("#availText").textContent=C.availability;
 $$("[data-photo]").forEach(f=>{if(C.photo){f.innerHTML='<img src="'+esc(C.photo)+'" alt="Portrait of Ma. Meyah A. Lopez" loading="lazy" decoding="async">'}});
 $("#aboutBody").innerHTML=C.about.map(p=>"<p>"+esc(p)+"</p>").join("")+'<ul class="about-list">'+C.aboutList.map(i=>"<li>"+esc(i)+"</li>").join("")+"</ul>";
-$("#svc").innerHTML=C.services.map(s=>'<article class="card rv"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+s[2]+'"/></svg><h3>'+esc(s[0])+"</h3><p>"+esc(s[1])+"</p></article>").join("");
+$("#svc").innerHTML=C.services.map(s=>'<a class="card rv" href="'+(PAGES[s[0]]||"#services")+'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+s[2]+'"/></svg><h3>'+esc(s[0])+"</h3><p>"+esc(s[1])+'</p><span class="ul" style="font-size:.85rem;margin-top:18px;display:inline-block">Open page</span></a>').join("");
 $("#tools").innerHTML=C.tools.map(t=>'<div class="tool rv"><b aria-hidden="true">'+esc(t.split(" ").pop()[0])+"</b>"+esc(t)+"</div>").join("");
 $("#proj").innerHTML=C.projects.map((p,i)=>'<article class="pc rv"><div class="prev"><div style="background:'+p.bg+'" role="img" aria-label="Preview of '+esc(p.t)+'">'+String(i+1).padStart(2,"0")+"</div></div><h3>"+esc(p.t)+"</h3><p>"+esc(p.d)+'</p><div class="meta">Practice project<br>'+p.tools.map(t=>'<span class="tag">'+esc(t)+"</span>").join("")+'</div><a class="btn" href="'+(p.url?esc(p.url):"#portfolio")+'" '+(p.url?'target="_blank" rel="noopener"':'data-empty="1"')+">View Project</a></article>").join("");
 $("#whyList").innerHTML=C.why.map(w=>'<div class="rv"><h3>'+esc(w[0])+"</h3><p>"+esc(w[1])+"</p></div>").join("");
